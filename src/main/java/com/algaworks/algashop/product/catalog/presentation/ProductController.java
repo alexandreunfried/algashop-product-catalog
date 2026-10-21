@@ -1,10 +1,12 @@
 package com.algaworks.algashop.product.catalog.presentation;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 
 @RestController
@@ -13,10 +15,10 @@ public class ProductController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ProductDetailOutput create(@RequestBody ProductInput input) {
+	public ProductDetailOutput create(@RequestBody @Valid ProductInput input) {
 		return ProductDetailOutput.builder()
 				.id(UUID.randomUUID())
-				.addedAt(OffsetDateTime.now())
+				.addedAt(OffsetDateTime.now(ZoneId.systemDefault()))
 				.inStock(false)
 				.name(input.getName())
 				.brand(input.getBrand())
@@ -39,7 +41,7 @@ public class ProductController {
 	public ProductDetailOutput findById(@PathVariable UUID productId) {
 		return ProductDetailOutput.builder()
 				.id(productId)
-				.addedAt(OffsetDateTime.now())
+				.addedAt(OffsetDateTime.now(ZoneId.systemDefault()))
 				.name("Notebook X11")
 				.brand("Deep Diver")
 				.description("A Gamer Notebook")
