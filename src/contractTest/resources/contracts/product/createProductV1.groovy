@@ -11,11 +11,11 @@ Contract.make {
 		}
 		urlPath("/api/v1/products") {
 			body([
-					name: value(
+					name        : value(
 							test("Notebook X11"),
 							stub(nonBlank())
 					),
-					brand: value(
+					brand       : value(
 							test("Deep Diver"),
 							stub(nonBlank())
 					),
@@ -23,19 +23,19 @@ Contract.make {
 							test(1500.00),
 							stub(number())
 					),
-					salePrice: value(
+					salePrice   : value(
 							test(1000.00),
 							stub(number())
 					),
-					enabled: value(
+					enabled     : value(
 							test(true),
 							stub(anyBoolean())
 					),
-					categoryId: value(
+					categoryId  : value(
 							test("f5ab7a1e-37da-41e1-892b-a1d38275c2f2"),
 							stub(anyUuid())
 					),
-					description: value(
+					description : value(
 							test("A Gamer Notebook!"),
 							stub(optional(nonBlank()))
 					)
@@ -48,19 +48,19 @@ Contract.make {
 			contentType "application/json"
 		}
 		body([
-				id: anyUuid(),
-				addedAt: anyIso8601WithOffset(),
-				name: fromRequest().body('$.name'),
-				brand: fromRequest().body('$.brand'),
+				id          : anyUuid(),
+				addedAt     : anyIso8601WithOffset(),
+				name        : fromRequest().body('$.name'),
+				brand       : fromRequest().body('$.brand'),
 				regularPrice: fromRequest().body('$.regularPrice'),
-				salePrice: fromRequest().body('$.salePrice'),
-				inStock: false,
-				enabled: fromRequest().body('$.enabled'),
-				category: [
-						id: fromRequest().body('$.categoryId'),
+				salePrice   : fromRequest().body('$.salePrice'),
+				inStock     : false,
+				enabled     : fromRequest().body('$.enabled'),
+				category    : [
+						id  : fromRequest().body('$.categoryId'),
 						name: "Notebook"
 				],
-				description: fromRequest().body('$.description')
+				description : fromRequest().body('$.description')
 		])
 	}
 }

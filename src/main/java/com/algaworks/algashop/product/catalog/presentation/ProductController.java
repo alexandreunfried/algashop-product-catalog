@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -53,6 +54,55 @@ public class ProductController {
 						.id(UUID.randomUUID())
 						.name("Notebook")
 						.build()
+				)
+				.build();
+	}
+
+	@GetMapping
+	public PageModel<ProductDetailOutput> filter(
+			@RequestParam(name = "size", required = false) Integer size,
+			@RequestParam(name = "number", required = false) Integer number
+	) {
+		return PageModel.<ProductDetailOutput>builder()
+				.number(0)
+				.number(size)
+				.totalPages(1)
+				.totalElements(2)
+				.content(
+						List.of(
+								ProductDetailOutput.builder()
+										.id(UUID.randomUUID())
+										.addedAt(OffsetDateTime.now(ZoneId.systemDefault()))
+										.name("Notebook X11")
+										.brand("Deep Diver")
+										.description("A Gamer Notebook")
+										.regularPrice(new BigDecimal("1500.00"))
+										.salePrice(new BigDecimal("1000.00"))
+										.inStock(true)
+										.enabled(true)
+										.category(CategoryMinimalOutput.builder()
+												.id(UUID.randomUUID())
+												.name("Notebook")
+												.build()
+										)
+										.build(),
+								ProductDetailOutput.builder()
+										.id(UUID.randomUUID())
+										.addedAt(OffsetDateTime.now(ZoneId.systemDefault()))
+										.name("Desktop I9000")
+										.brand("Deep Diver")
+										.description("A Gamer Desktop")
+										.regularPrice(new BigDecimal("3500.00"))
+										.salePrice(new BigDecimal("3000.00"))
+										.inStock(true)
+										.enabled(true)
+										.category(CategoryMinimalOutput.builder()
+												.id(UUID.randomUUID())
+												.name("Desktop")
+												.build()
+										)
+										.build()
+						)
 				)
 				.build();
 	}
